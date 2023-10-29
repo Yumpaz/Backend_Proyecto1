@@ -109,7 +109,7 @@ db.once("open", async () => {
         rol,
       });
       await nuevoUsuario.save();
-      res.status(201).json({ mensaje: "Usuario creado con éxito" });
+      res.status(201).json({ mensaje: "Usuario creado" });
     } catch (error) {
       console.error("Error al crear el usuario:", error);
       res.status(500).json({ error: "Error al crear el usuario" });
@@ -143,7 +143,7 @@ db.once("open", async () => {
         return res.status(500).json({ error: "Error al buscar el usuario" });
       }
     } else {
-      return res.status(400).json({ error: "Parámetros no válidos" });
+      return res.status(400).json({ error: "Parámetros inválidos" });
     }
   });
 
@@ -161,7 +161,7 @@ db.once("open", async () => {
 
     // Validar que el ID sea válido
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ error: "ID de usuario no válido" });
+      return res.status(400).json({ error: "ID de usuario inválido" });
     }
     try {
       const usuario = await Usuario.findByIdAndUpdate(
@@ -195,7 +195,7 @@ db.once("open", async () => {
       }
       usuario.habilitado = false;
       await usuario.save();
-      return res.json({ message: "Usuario deshabilitado con éxito" });
+      return res.json({ message: "Usuario deshabilitado exitosamente" });
     } catch (error) {
       console.error(error);
       return res
