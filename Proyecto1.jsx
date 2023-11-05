@@ -211,10 +211,10 @@ db.once("open", async () => {
       const { categoria, nombre } = req.query;
       let query = {};
       if (categoria) {
-        query.categoria = categoria;
+        query.categoria = { $regex: new RegExp(`.*${categoria}.*`, "i") };
       }
       if (nombre) {
-        query.nombre = { $regex: new RegExp(nombre, "i") };
+        query.nombre = { $regex: new RegExp(`.*${nombre}.*`, 'i') };
       }
       const restaurantes = await Restaurante.find(query);
       if (restaurantes.length === 0) {
